@@ -7,5 +7,5 @@ coverage/
 .css-archaeology/
 .DS_Store
 *.log
-bench-results/tmp/
+bench-results/
 apps/playground/next-env.d.ts

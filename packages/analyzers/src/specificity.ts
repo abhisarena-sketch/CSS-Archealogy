@@ -221,10 +221,16 @@ export const specificityAnalyzer: Analyzer = {
           const decl = project.declarations[i]!;
           if (decl.custom) continue;
           // Group by property and the key compound ignoring state pseudo-classes.
-          const key = `${decl.prop}\u0000${compoundKey(part.keySimple)}\u0000${part.pseudoElements.join()}`;
-          const list = byKey.get(key);
-          if (list) list.push({ decl, rule, part });
-          else byKey.set(key, [{ decl, rule, part }]);
+          // CSS Module classes are file-scoped (see canInteract), so they are grouped per file.
+          // Unscoped selectors in a module file go in both groups; the seen-sets below drop repeats.
+          const scoped = rule.isModule && !part.hasGlobal && part.classes.length > 0;
+          const base = `${decl.prop}\u0000${compoundKey(part.keySimple)}\u0000${part.pseudoElements.join()}`;
+          const keys = scoped ? [`${rule.file}\u0000${base}`] : rule.isModule ? [`\u0000${base}`, `${rule.file}\u0000${base}`] : [`\u0000${base}`];
+          for (const key of keys) {
+            const list = byKey.get(key);
+            if (list) list.push({ decl, rule, part });
+            else byKey.set(key, [{ decl, rule, part }]);
+          }
         }
       }
     }

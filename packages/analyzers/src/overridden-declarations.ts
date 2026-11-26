@@ -48,6 +48,17 @@ export const overriddenDeclarationsAnalyzer: Analyzer = {
     // Index: prop -> (selector text | single-compound key) -> entries
     const byText = new Map<string, Map<string, CascadeEntry[]>>();
     const byCompound = new Map<string, Map<string, CascadeEntry[]>>();
+    // CSS Module classes are file-scoped, so they live in their own bucket per file.
+    // This keeps lookups linear for projects with thousands of modules sharing class names.
+    const scopeKey = (rule: CascadeEntry['rule'], part: CascadeEntry['part'], key: string) =>
+      rule.isModule && !part.hasGlobal && part.classes.length > 0 ? `${rule.file}\u0000${key}` : key;
+    const lookup = (index: Map<string, Map<string, CascadeEntry[]>>, prop: string, file: string, key: string): CascadeEntry[] => {
+      const m = index.get(prop);
+      if (!m) return [];
+      const shared = m.get(key) ?? [];
+      const local = m.get(`${file}\u0000${key}`);
+      return local ? [...shared, ...local] : shared;
+    };
     const push = (index: Map<string, Map<string, CascadeEntry[]>>, prop: string, key: string, entry: CascadeEntry) => {
       let m = index.get(prop);
       if (!m) index.set(prop, (m = new Map()));
@@ -62,8 +73,8 @@ export const overriddenDeclarationsAnalyzer: Analyzer = {
           const decl = project.declarations[i]!;
           if (decl.custom) continue;
           const entry = { decl, rule, part };
-          push(byText, decl.prop, part.text, entry);
-          if (part.compounds === 1 && part.keyAll.length) push(byCompound, decl.prop, compoundKey(part.keyAll), entry);
+          push(byText, decl.prop, scopeKey(rule, part, part.text), entry);
+          if (part.compounds === 1 && part.keyAll.length) push(byCompound, decl.prop, scopeKey(rule, part, compoundKey(part.keyAll)), entry);
         }
       }
     }
@@ -82,11 +93,12 @@ export const overriddenDeclarationsAnalyzer: Analyzer = {
           }
           const self: CascadeEntry = { decl, rule, part };
           const props = [decl.prop, ...shorthandsOf(decl.prop)];
+          const keySubsets = subsets(part.keyAll);
           let best: (typeof overriders)[number] | null = null;
           for (const prop of props) {
             const candidates = [
-              ...(byText.get(prop)?.get(part.text) ?? []),
-              ...subsets(part.keyAll).flatMap((key) => byCompound.get(prop)?.get(key) ?? []),
+              ...lookup(byText, prop, rule.file, part.text),
+              ...keySubsets.flatMap((key) => lookup(byCompound, prop, rule.file, key)),
             ];
             for (const other of candidates) {
               if (other.decl.index === decl.index) continue;
