@@ -9,22 +9,24 @@
     "packages/core",
     "packages/analyzers",
     "packages/framework-adapters",
-    "packages/cli"
+    "packages/cli",
+    "apps/playground"
   ],
   "engines": {
     "node": ">=20.9.0"
   },
   "scripts": {
     "build": "tsc -b packages/core packages/analyzers packages/framework-adapters packages/cli",
-    "build:playground": "npm run build && npm run build -w apps/playground",
+    "build:playground": "npm run build && npm run build -w @css-archaeology/playground",
     "clean": "tsc -b --clean packages/core packages/analyzers packages/framework-adapters packages/cli",
     "typecheck": "tsc -b packages/core packages/analyzers packages/framework-adapters packages/cli && tsc -p tests/tsconfig.json --noEmit",
-    "typecheck:playground": "npm run typecheck -w apps/playground",
+    "typecheck:playground": "npm run build && npm run typecheck -w @css-archaeology/playground",
     "lint": "eslint .",
     "test": "vitest run",
     "test:watch": "vitest",
     "bench": "npm run build && node scripts/benchmark.mjs",
-    "audit:deps": "npm audit --omit=dev --audit-level=high"
+    "audit:deps": "npm audit --omit=dev --audit-level=high",
+    "dev:playground": "npm run build && npm run dev -w @css-archaeology/playground"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.5",

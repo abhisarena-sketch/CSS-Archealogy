@@ -1,4 +1,7 @@
 import { z } from 'zod';
+// CSS Archaeology never evaluates generated code: turn off Zod's `new Function` JIT.
+z.config({ jitless: true });
+
 import { SEVERITIES, CONFIDENCES, type Severity, type Confidence } from './types.js';
 
 export const FRAMEWORKS = ['auto', 'html', 'react', 'next', 'css-modules', 'tailwind'] as const;

@@ -1,0 +1,110 @@
+[
+ {
+  "id": "html-site",
+  "title": "Plain HTML and CSS",
+  "files": [
+   {
+    "path": "css/base.css",
+    "content": "*, *::before, *::after { box-sizing: border-box; }\nbody { margin: 0; font-family: system-ui, sans-serif; color: #1f2328; }\na { color: #0047ab; }\ntable { border-collapse: collapse; }\n\n@media (min-width: 768px) {\n  .nav-link { padding: 8px 16px; }\n}\n.nav-link { padding: 4px 8px; }\n"
+   },
+   {
+    "path": "css/components.css",
+    "content": ".header { display: flex; align-items: center; padding: 16px; }\n#site-header .nav .nav-link.is-active { color: #0047ab; font-weight: 700; }\n.card { padding: 16px; border-radius: 8px; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); }\n.card { padding: 16px; }\n.card-title { font-size: 20px; margin: 0 0 8px; }\n.card-body { color: #59636e; }\n.btn { padding: 8px 16px; border-radius: 8px; }\n.btn-primary { background: #0047ab; color: #fff; }\n.btn-secondary { background: #59636e; color: #fff; }\n.menu-open .nav { display: block; }\n.legacy-banner { background: #ff0000; }\n@media (min-width: 768px) {\n  .card { padding: 24px; }\n}\n@media (min-width: 768px) {\n  .btn { padding: 12px 24px; }\n}\n"
+   },
+   {
+    "path": "index.html",
+    "content": "<!doctype html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Example HTML site</title>\n  <link rel=\"stylesheet\" href=\"css/base.css\">\n  <link rel=\"stylesheet\" href=\"css/components.css\">\n  <style>\n    .hero { padding: 48px 24px; }\n    .hero { padding: 48px 24px; }\n  </style>\n</head>\n<body>\n  <header id=\"site-header\" class=\"header\">\n    <nav class=\"nav\"><a class=\"nav-link is-active\" href=\"/\">Home</a><a class=\"nav-link\" href=\"/about\">About</a></nav>\n  </header>\n  <main>\n    <section class=\"hero\"><h1 class=\"hero-title\">Hello</h1></section>\n    <div class=\"card\"><h2 class=\"card-title\">Card</h2><p class=\"card-body\">Body</p></div>\n    <button class=\"btn btn-primary\" type=\"button\" data-toggle=\"menu\">Open</button>\n  </main>\n  <script>\n    document.querySelector('[data-toggle]').addEventListener('click', function () {\n      document.body.classList.toggle('menu-open');\n    });\n  </script>\n</body>\n</html>\n"
+   }
+  ]
+ },
+ {
+  "id": "react-app",
+  "title": "React + CSS Modules",
+  "files": [
+   {
+    "path": "package.json",
+    "content": "{ \"name\": \"example-react-app\", \"private\": true, \"dependencies\": { \"react\": \"^19.0.0\", \"clsx\": \"^2.1.1\" } }\n"
+   },
+   {
+    "path": "src/App.tsx",
+    "content": "import clsx from 'clsx';\nimport { Button } from './components/Button';\n\ntype Tone = 'info' | 'warning' | 'danger';\n\nexport function App({ tone, compact }: { tone: Tone; compact: boolean }) {\n  return (\n    <div className={clsx('app', { 'app--compact': compact })}>\n      <p className={`alert alert-${tone}`}>Heads up</p>\n      <Button variant=\"primary\">Save</Button>\n    </div>\n  );\n}\n"
+   },
+   {
+    "path": "src/components/Button.module.css",
+    "content": ".button { padding: 8px 16px; border-radius: 6px; }\n.primary { background: #0047ab; color: #fff; }\n.secondary { background: #eaeef2; color: #1f2328; }\n.ghost { background: transparent; }\n"
+   },
+   {
+    "path": "src/components/Button.tsx",
+    "content": "import styles from './Button.module.css';\n\nexport function Button({ variant, children }: { variant: 'primary' | 'secondary'; children: React.ReactNode }) {\n  return <button className={`${styles.button} ${variant === 'primary' ? styles.primary : styles.secondary}`}>{children}</button>;\n}\n"
+   },
+   {
+    "path": "src/main.tsx",
+    "content": "import './styles/global.css';\nimport { App } from './App';\n\nexport default App;\n"
+   },
+   {
+    "path": "src/styles/global.css",
+    "content": ".app { max-width: 960px; margin: 0 auto; }\n.app--compact { max-width: 640px; }\n.alert { padding: 12px 16px; border-radius: 6px; }\n.alert-info { background: #e8effa; }\n.alert-warning { background: #fff4e5; }\n.alert-danger { background: #fdecea; }\n.sidebar { width: 240px; }\n"
+   }
+  ]
+ },
+ {
+  "id": "next-app",
+  "title": "Next.js app router",
+  "files": [
+   {
+    "path": "app/dashboard/page.tsx",
+    "content": "export default function Dashboard() {\n  return <section className=\"page dashboard\"><h2 className=\"page-title\">Stats</h2></section>;\n}\n"
+   },
+   {
+    "path": "app/globals.css",
+    "content": "html, body { margin: 0; }\n.layout { font-family: system-ui, sans-serif; color: #1f2328; }\n.page { padding: 24px; }\n.page-title { font-size: 28px; margin: 0 0 16px; }\n.link { color: #0047ab; }\n.dashboard .page-title { font-size: 24px; }\na { text-decoration: none; }\n"
+   },
+   {
+    "path": "app/layout.tsx",
+    "content": "import './globals.css';\nimport './theme.css';\n\nexport default function RootLayout({ children }: { children: React.ReactNode }) {\n  return (\n    <html lang=\"en\">\n      <body className=\"layout\">{children}</body>\n    </html>\n  );\n}\n"
+   },
+   {
+    "path": "app/page.tsx",
+    "content": "import Link from 'next/link';\nimport { StatCard } from '../components/StatCard';\n\nexport default function Home() {\n  return (\n    <main className=\"page\">\n      <h1 className=\"page-title\">Dashboard</h1>\n      <Link href=\"/dashboard\" className=\"link\">Open dashboard</Link>\n      <StatCard label=\"Users\" value={42} />\n    </main>\n  );\n}\n"
+   },
+   {
+    "path": "app/theme.css",
+    "content": ".link { color: #003a8c; }\n.page { padding: 24px; }\n.unused-theme-class { color: #333; }\n"
+   },
+   {
+    "path": "components/StatCard.module.css",
+    "content": ".card { padding: 16px; border: 1px solid #d8dee4; border-radius: 8px; }\n.label { color: #59636e; font-size: 14px; }\n.value-text { font-size: 32px; }\n.trend { color: #b42318; }\n"
+   },
+   {
+    "path": "components/StatCard.tsx",
+    "content": "import styles from './StatCard.module.css';\n\nexport function StatCard({ label, value }: { label: string; value: number }) {\n  return (\n    <div className={styles.card}>\n      <span className={styles.label}>{label}</span>\n      <strong className={styles['value-text']}>{value}</strong>\n    </div>\n  );\n}\n"
+   },
+   {
+    "path": "package.json",
+    "content": "{ \"name\": \"example-next-app\", \"private\": true, \"dependencies\": { \"next\": \"^16.0.0\", \"react\": \"^19.0.0\" } }\n"
+   }
+  ]
+ },
+ {
+  "id": "tailwind-app",
+  "title": "Tailwind CSS",
+  "files": [
+   {
+    "path": "package.json",
+    "content": "{ \"name\": \"example-tailwind-app\", \"private\": true, \"dependencies\": { \"react\": \"^19.0.0\", \"tailwindcss\": \"^4.0.0\" } }\n"
+   },
+   {
+    "path": "src/app.css",
+    "content": "@import \"tailwindcss\";\n@source inline(\"bg-{red,blue}-500\");\n\n@layer components {\n  .btn { @apply rounded-md px-4 py-2 font-semibold; }\n  .btn-primary { @apply btn bg-blue-600 text-white; }\n  .card-elevated { box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12); }\n}\n.legacy-grid { display: grid; grid-template-columns: repeat(12, 1fr); }\n"
+   },
+   {
+    "path": "src/App.tsx",
+    "content": "import './app.css';\n\nexport function App() {\n  return (\n    <div className=\"mx-auto max-w-3xl p-6 md:p-10\">\n      <button className=\"btn-primary hover:bg-blue-700\">Save</button>\n      <div className=\"card-elevated rounded-lg bg-white p-4\" />\n    </div>\n  );\n}\n"
+   },
+   {
+    "path": "tailwind.config.js",
+    "content": "module.exports = {\n  content: ['./src/**/*.{js,jsx,ts,tsx}'],\n  safelist: ['legacy-grid'],\n};\n"
+   }
+  ]
+ }
+]
