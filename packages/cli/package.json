@@ -1,0 +1,51 @@
+{
+  "name": "css-archaeology",
+  "version": "0.1.0",
+  "description": "CSS Archaeology CLI: understand your CSS. Find what is hiding beneath it.",
+  "license": "MIT",
+  "author": "Workfonic Labs",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abhisarena-sketch/css-archealogy.git",
+    "directory": "packages/cli"
+  },
+  "homepage": "https://github.com/abhisarena-sketch/css-archealogy#readme",
+  "engines": {
+    "node": ">=20.9.0"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "sideEffects": false,
+  "dependencies": {
+    "@css-archaeology/analyzers": "0.1.0",
+    "@css-archaeology/core": "0.1.0",
+    "@css-archaeology/framework-adapters": "0.1.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "bin": {
+    "css-archaeology": "./dist/bin.js"
+  },
+  "keywords": [
+    "css",
+    "static-analysis",
+    "unused-css",
+    "specificity",
+    "linter",
+    "audit",
+    "design-tokens"
+  ]
+}

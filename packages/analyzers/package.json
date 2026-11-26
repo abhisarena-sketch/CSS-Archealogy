@@ -1,0 +1,25 @@
+{
+  "name": "@css-archaeology/analyzers",
+  "version": "0.1.0",
+  "description": "Static CSS analyzers for CSS Archaeology.",
+  "license": "MIT",
+  "author": "Workfonic Labs",
+  "type": "module",
+  "repository": { "type": "git", "url": "git+https://github.com/abhisarena-sketch/css-archealogy.git", "directory": "packages/analyzers" },
+  "homepage": "https://github.com/abhisarena-sketch/css-archealogy#readme",
+  "engines": { "node": ">=20.9.0" },
+  "files": ["dist", "README.md"],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js" },
+    "./package.json": "./package.json"
+  },
+  "sideEffects": false,
+  "dependencies": {
+    "@css-archaeology/core": "0.1.0",
+    "postcss-selector-parser": "^7.1.0",
+    "zod": "^4.1.0"
+  },
+  "publishConfig": { "access": "public" }
+}
