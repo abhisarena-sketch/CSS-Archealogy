@@ -136,8 +136,10 @@ export interface SelectorPart {
   simpleSelectors: number;
   /** Normalised text of the right-most compound (the "key" selector). */
   keyCompound: string;
-  /** Simple selectors of the key compound, excluding pseudo-classes such as :hover. */
+  /** Simple selectors of the key compound, excluding state pseudo-classes such as :hover. Sorted. */
   keySimple: string[];
+  /** All simple selectors of the key compound, including pseudo-classes and pseudo-elements. Sorted. */
+  keyAll: string[];
   /** Contains `:global(...)` (CSS Modules). */
   hasGlobal: boolean;
   /** Contains an interpolation or other construct that could not be analysed. */

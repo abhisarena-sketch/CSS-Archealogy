@@ -12,7 +12,7 @@ import type {
 } from './types.js';
 
 /** Bump when the shape of {@link StylesheetModel} changes so caches are invalidated. */
-export const STYLESHEET_MODEL_VERSION = 3;
+export const STYLESHEET_MODEL_VERSION = 4;
 
 export interface LocalDeclaration {
   line: number;

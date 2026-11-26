@@ -151,7 +151,9 @@ function normaliseNode(root: selectorParser.Root): void {
       node.spaces.before = '';
       node.spaces.after = '';
     } else {
-      node.spaces.before = '';
+      // Selector lists inside pseudo-classes read as `:is(.a, .b)`.
+      const inPseudo = node.parent?.type === 'pseudo' && node.parent.index(node) > 0;
+      node.spaces.before = inPseudo ? ' ' : '';
       node.spaces.after = '';
     }
   });
@@ -333,6 +335,7 @@ export function analyzeSelector(text: string): SelectorPart {
     simpleSelectors: 0,
     keyCompound: text.trim(),
     keySimple: [],
+    keyAll: [],
     hasGlobal: false,
     unparseable: true,
     requirements: emptyRequirements(),
@@ -380,6 +383,7 @@ export function analyzeSelector(text: string): SelectorPart {
     simpleSelectors: countSimple(selector),
     keyCompound: key.map((n) => n.toString()).join(''),
     keySimple,
+    keyAll: key.map((n) => n.toString()).sort(),
     hasGlobal: state.hasGlobal,
     unparseable: nesting,
     requirements,
