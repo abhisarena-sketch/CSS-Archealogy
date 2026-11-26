@@ -303,6 +303,10 @@ async function cmdConfig(args: string[], io: CliIO): Promise<number> {
 export async function run(argv: string[], io: CliIO): Promise<number> {
   const [command, ...args] = argv;
   try {
+    if (command && !command.startsWith('-') && (args.includes('--help') || args.includes('-h'))) {
+      io.stdout(HELP);
+      return EXIT.ok;
+    }
     switch (command) {
       case undefined:
       case 'help':

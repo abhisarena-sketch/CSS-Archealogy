@@ -5,14 +5,28 @@
   "license": "MIT",
   "author": "Workfonic Labs",
   "type": "module",
-  "repository": { "type": "git", "url": "git+https://github.com/abhisarena-sketch/CSS-Archealogy.git", "directory": "packages/framework-adapters" },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abhisarena-sketch/CSS-Archealogy.git",
+    "directory": "packages/framework-adapters"
+  },
   "homepage": "https://github.com/abhisarena-sketch/CSS-Archealogy#readme",
-  "engines": { "node": ">=20.9.0" },
-  "files": ["dist", "README.md"],
+  "engines": {
+    "node": ">=20.9.0"
+  },
+  "files": [
+    "dist",
+    "!dist/.tsbuildinfo",
+    "README.md",
+    "LICENSE"
+  ],
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
-    ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js" },
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
     "./package.json": "./package.json"
   },
   "sideEffects": false,
@@ -21,5 +35,10 @@
     "htmlparser2": "^10.0.0",
     "typescript": "~5.9.3"
   },
-  "publishConfig": { "access": "public" }
+  "publishConfig": {
+    "access": "public"
+  },
+  "bugs": {
+    "url": "https://github.com/abhisarena-sketch/CSS-Archealogy/issues"
+  }
 }

@@ -88,7 +88,7 @@ export const configSchema = z
     outputDir: z.string().min(1).default('.css-archaeology'),
     rules: z.record(z.string(), ruleSettingSchema).default({}),
     /** Exit with a non-zero status when a finding at or above this severity exists. */
-    failOn: z.union([severitySchema, z.literal('none')]).default('high'),
+    failOn: z.union([severitySchema, z.literal('none')], { error: 'Expected one of "info", "low", "medium", "high" or "none"' }).default('high'),
     minConfidence: confidenceSchema.default('low'),
     /** Files larger than this many bytes are skipped (and listed in the report). */
     maxFileSize: z.number().int().positive().default(2_000_000),

@@ -1,0 +1,85 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: Typecheck, lint, test, build (Node ${{ matrix.node }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [20, 22]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npm test
+      - run: npm run build
+      - name: CLI smoke test
+        run: |
+          node packages/cli/dist/bin.js --version
+          node packages/cli/dist/bin.js config validate
+          node packages/cli/dist/bin.js scan examples/html-site --format json --fail-on none --no-cache --quiet > /tmp/report.json
+          node -e "const r=require('/tmp/report.json'); if(!r.findings.length) process.exit(1); console.log(r.summary.findings + ' findings')"
+          git diff --exit-code -- examples
+
+  playground:
+    name: Playground typecheck and build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - run: npm run typecheck:playground
+      - run: npm run build:playground
+
+  audit:
+    name: Dependency audit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm audit --audit-level=moderate
+      - name: Security checks
+        run: |
+          # The engine must never evaluate code.
+          if grep -rnE '\beval\(|new Function\(|from .node:vm.|require\(.vm.\)' packages/*/src apps/playground/src; then
+            echo "Forbidden code evaluation found"; exit 1
+          fi
+
+  package:
+    name: npm package contents
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - run: npm pack --dry-run --workspace packages/core --workspace packages/analyzers --workspace packages/framework-adapters --workspace packages/cli

@@ -16,7 +16,9 @@
   },
   "files": [
     "dist",
-    "README.md"
+    "!dist/.tsbuildinfo",
+    "README.md",
+    "LICENSE"
   ],
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -47,5 +49,8 @@
     "linter",
     "audit",
     "design-tokens"
-  ]
+  ],
+  "bugs": {
+    "url": "https://github.com/abhisarena-sketch/CSS-Archealogy/issues"
+  }
 }

@@ -44,6 +44,9 @@ describe('css-archaeology CLI', () => {
     out = [];
     expect(await cli('--version')).toBe(EXIT.ok);
     expect(out.join('').trim()).toMatch(/^\d+\.\d+\.\d+$/);
+    out = [];
+    expect(await cli('scan', '--help')).toBe(EXIT.ok);
+    expect(out.join('')).toContain('Scan options');
   });
 
   it('init writes a valid configuration and refuses to overwrite', async () => {
