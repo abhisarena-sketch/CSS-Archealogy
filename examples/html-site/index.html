@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Example HTML site</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <style>
+    .hero { padding: 48px 24px; }
+    .hero { padding: 48px 24px; }
+  </style>
+</head>
+<body>
+  <header id="site-header" class="header">
+    <nav class="nav"><a class="nav-link is-active" href="/">Home</a><a class="nav-link" href="/about">About</a></nav>
+  </header>
+  <main>
+    <section class="hero"><h1 class="hero-title">Hello</h1></section>
+    <div class="card"><h2 class="card-title">Card</h2><p class="card-body">Body</p></div>
+    <button class="btn btn-primary" type="button" data-toggle="menu">Open</button>
+  </main>
+  <script>
+    document.querySelector('[data-toggle]').addEventListener('click', function () {
+      document.body.classList.toggle('menu-open');
+    });
+  </script>
+</body>
+</html>

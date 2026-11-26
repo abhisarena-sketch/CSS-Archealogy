@@ -1,0 +1,4 @@
+.button { padding: 8px 16px; border-radius: 6px; }
+.primary { background: #0047ab; color: #fff; }
+.secondary { background: #eaeef2; color: #1f2328; }
+.ghost { background: transparent; }

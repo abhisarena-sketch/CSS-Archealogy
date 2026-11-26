@@ -7,10 +7,10 @@
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/abhisarena-sketch/css-archealogy.git",
+    "url": "git+https://github.com/abhisarena-sketch/CSS-Archealogy.git",
     "directory": "packages/cli"
   },
-  "homepage": "https://github.com/abhisarena-sketch/css-archealogy#readme",
+  "homepage": "https://github.com/abhisarena-sketch/CSS-Archealogy#readme",
   "engines": {
     "node": ">=20.9.0"
   },

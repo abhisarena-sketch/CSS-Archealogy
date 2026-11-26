@@ -1,0 +1,4 @@
+.card { padding: 16px; border: 1px solid #d8dee4; border-radius: 8px; }
+.label { color: #59636e; font-size: 14px; }
+.value-text { font-size: 32px; }
+.trend { color: #b42318; }
