@@ -4,8 +4,20 @@ import { duplicateDeclarationsAnalyzer } from './duplicate-declarations.js';
 import { overriddenDeclarationsAnalyzer } from './overridden-declarations.js';
 import { specificityAnalyzer } from './specificity.js';
 import { unusedSelectorsAnalyzer } from './unused-selectors.js';
+import { mediaQueriesAnalyzer } from './media-queries.js';
+import { designTokensAnalyzer } from './design-tokens.js';
+import { complexityAnalyzer } from './complexity.js';
 
-export { duplicateDeclarationsAnalyzer, overriddenDeclarationsAnalyzer, specificityAnalyzer, unusedSelectorsAnalyzer };
+export {
+  complexityAnalyzer,
+  designTokensAnalyzer,
+  duplicateDeclarationsAnalyzer,
+  mediaQueriesAnalyzer,
+  overriddenDeclarationsAnalyzer,
+  specificityAnalyzer,
+  unusedSelectorsAnalyzer,
+};
+export { parseColor } from './design-tokens.js';
 export * from './cascade.js';
 export { moduleExportNames } from './unused-selectors.js';
 
@@ -15,6 +27,9 @@ export const defaultAnalyzers: Analyzer[] = [
   duplicateDeclarationsAnalyzer,
   specificityAnalyzer,
   overriddenDeclarationsAnalyzer,
+  mediaQueriesAnalyzer,
+  designTokensAnalyzer,
+  complexityAnalyzer,
 ];
 
 /** Metadata for every rule, including engine-level rules such as parse-error. */
