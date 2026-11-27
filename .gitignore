@@ -1,0 +1,11 @@
+node_modules/
+dist/
+*.tsbuildinfo
+.next/
+out/
+coverage/
+.css-archaeology/
+.DS_Store
+*.log
+bench-results/
+apps/playground/next-env.d.ts

@@ -1,0 +1,51 @@
+{
+  "name": "@css-archaeology/core",
+  "version": "0.1.0",
+  "description": "Core engine for CSS Archaeology: discovery, parsing, configuration, orchestration and reporting.",
+  "license": "MIT",
+  "author": "Workfonic Labs",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abhisarena-sketch/CSS-Archealogy.git",
+    "directory": "packages/core"
+  },
+  "homepage": "https://github.com/abhisarena-sketch/CSS-Archealogy#readme",
+  "engines": {
+    "node": ">=20.9.0"
+  },
+  "files": [
+    "dist",
+    "!dist/.tsbuildinfo",
+    "README.md",
+    "LICENSE"
+  ],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./node": {
+      "types": "./dist/node/index.d.ts",
+      "import": "./dist/node/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "sideEffects": false,
+  "dependencies": {
+    "fast-glob": "^3.3.3",
+    "postcss": "^8.5.6",
+    "postcss-safe-parser": "^7.0.1",
+    "postcss-scss": "^4.0.9",
+    "postcss-selector-parser": "^7.1.0",
+    "zod": "^4.1.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "bugs": {
+    "url": "https://github.com/abhisarena-sketch/CSS-Archealogy/issues"
+  }
+}

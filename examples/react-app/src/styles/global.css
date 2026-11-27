@@ -1,0 +1,7 @@
+.app { max-width: 960px; margin: 0 auto; }
+.app--compact { max-width: 640px; }
+.alert { padding: 12px 16px; border-radius: 6px; }
+.alert-info { background: #e8effa; }
+.alert-warning { background: #fff4e5; }
+.alert-danger { background: #fdecea; }
+.sidebar { width: 240px; }

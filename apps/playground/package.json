@@ -1,0 +1,34 @@
+{
+  "name": "@css-archaeology/playground",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Browser playground for CSS Archaeology. Analysis runs locally in a Web Worker.",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@css-archaeology/analyzers": "0.1.0",
+    "@css-archaeology/core": "0.1.0",
+    "@css-archaeology/framework-adapters": "0.1.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "fflate": "^0.8.2",
+    "lucide-react": "^1.81.0",
+    "next": "^16.4.6",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "tailwind-merge": "^3.7.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.5",
+    "@types/react": "^19.3.3",
+    "@types/react-dom": "^19.3.0",
+    "tailwindcss": "^4.3.5",
+    "typescript": "~5.9.3"
+  }
+}

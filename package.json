@@ -1,0 +1,40 @@
+{
+  "name": "css-archaeology-monorepo",
+  "private": true,
+  "version": "0.1.0",
+  "description": "CSS Archaeology: understand your CSS. Find what is hiding beneath it.",
+  "license": "MIT",
+  "type": "module",
+  "workspaces": [
+    "packages/core",
+    "packages/analyzers",
+    "packages/framework-adapters",
+    "packages/cli",
+    "apps/playground"
+  ],
+  "engines": {
+    "node": ">=20.9.0"
+  },
+  "scripts": {
+    "build": "tsc -b packages/core packages/analyzers packages/framework-adapters packages/cli",
+    "build:playground": "npm run build && npm run build -w @css-archaeology/playground",
+    "clean": "tsc -b --clean packages/core packages/analyzers packages/framework-adapters packages/cli",
+    "typecheck": "tsc -b packages/core packages/analyzers packages/framework-adapters packages/cli && tsc -p tests/tsconfig.json --noEmit",
+    "typecheck:playground": "npm run build && npm run typecheck -w @css-archaeology/playground",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "bench": "npm run build && node scripts/benchmark.mjs",
+    "audit:deps": "npm audit --omit=dev --audit-level=high",
+    "dev:playground": "npm run build && npm run dev -w @css-archaeology/playground"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.5",
+    "@types/node": "^20.19.0",
+    "eslint": "^9.39.5",
+    "globals": "^16.0.0",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.74.0",
+    "vitest": "^4.1.12"
+  }
+}
